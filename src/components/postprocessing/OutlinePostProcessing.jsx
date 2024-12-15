@@ -6,7 +6,7 @@ import { EffectComposer } from "@react-three/postprocessing";
 import OutlineEffect from "./effects/OutlineEffect";
 import * as THREE from "three";
 
-const OutlinePostProcessing = ({selectedObject}) => {
+const OutlinePostProcessing = ({ selectedObject, showFBTexture = false }) => {
   const fbo = useFBO({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -22,9 +22,15 @@ const OutlinePostProcessing = ({selectedObject}) => {
   return (
     <>
       <MaskPass selectedObject={selectedObject} fbo={fbo} />
-      <Plane args={[20,20]} rotation={[0, Math.PI/2,0]} position={[-10,5,20]}>
-      <meshBasicMaterial map={fbo.texture}/>
-      </Plane>
+      {showFBTexture ? (
+        <Plane
+          args={[20, 20]}
+          rotation={[0, Math.PI / 2, 0]}
+          position={[-15, 5, 0]}
+        >
+          <meshBasicMaterial map={fbo.texture} />
+        </Plane>
+      ) : null}
       <EffectComposer>
         <OutlineEffect
           maskTexture={fbo.texture}

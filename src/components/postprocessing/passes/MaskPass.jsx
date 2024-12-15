@@ -6,7 +6,6 @@ const MaskPass = ({ selectedObject, fbo }) => {
   const { scene, camera, gl } = useThree();
 
   const whiteMaterial = new THREE.MeshBasicMaterial({color: "white"});
-
   const originalMeshes = useRef(new Map());
 
   useFrame(() => {

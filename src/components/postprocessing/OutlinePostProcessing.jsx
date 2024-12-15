@@ -1,12 +1,13 @@
 import { Plane, useFBO } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import React, { useMemo } from "react";
-import MaskPass from "./passes/MaskPass";
+import React, { useEffect, useMemo } from "react";
+import SilhouetteMaskPass from "./passes/SilhouetteMaskPass";
 import { EffectComposer } from "@react-three/postprocessing";
 import OutlineEffect from "./effects/OutlineEffect";
 import * as THREE from "three";
 
-const OutlinePostProcessing = ({ selectedObject, showFBTexture = false }) => {
+// Postprocessing object for the main scene
+const OutlinePostProcessing = ({ selectedObject, showFBTexture = false, outlineColor, outlineThickness }) => {
   const fbo = useFBO({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -21,7 +22,7 @@ const OutlinePostProcessing = ({ selectedObject, showFBTexture = false }) => {
 
   return (
     <>
-      <MaskPass selectedObject={selectedObject} fbo={fbo} />
+      <SilhouetteMaskPass selectedObject={selectedObject} fbo={fbo} />
       {showFBTexture ? (
         <Plane
           args={[20, 20]}
@@ -35,8 +36,8 @@ const OutlinePostProcessing = ({ selectedObject, showFBTexture = false }) => {
         <OutlineEffect
           maskTexture={fbo.texture}
           resolution={[fbo.width, fbo.width]}
-          edgeStrength={2.0}
-          outlineColor={[1, 0, 0]} // red outline
+          outlineThickness={outlineThickness}
+          outlineColor={new THREE.Color(outlineColor)} // red outline
         />
       </EffectComposer>
     </>

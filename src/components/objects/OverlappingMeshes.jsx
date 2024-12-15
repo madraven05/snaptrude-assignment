@@ -1,7 +1,13 @@
 import React, { Suspense } from "react";
 import Bench from "./Bench";
 
+/**
+ * React FC for the overlapping meshes in
+ * the scene. Just to avoid cluterring the MainScene FC. 
+ */
 const OverlappingMeshes = ({ setSelectedObject }) => {
+
+  // set selected object on pointer over
   const handlePointerOver = (e) => {
     e.stopPropagation();
     setSelectedObject(e.object);

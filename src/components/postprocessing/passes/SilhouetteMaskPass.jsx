@@ -1,8 +1,18 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 
-const MaskPass = ({ selectedObject, fbo }) => {
+/**
+ * Mask Pass to render silhouettes of the meshes
+ * Firstly, we traverse the scene and check if
+ * mesh is the selected mesh. If so, give it white color
+ * else, make the mesh invisible. Render it onto the FBO.
+ * 
+ * Then, restore the original meshes with the original 
+ * visibility and materials
+ * 
+ */
+const SilhouetteMaskPass = ({ selectedObject, fbo }) => {
   const { scene, camera, gl } = useThree();
 
   const whiteMaterial = new THREE.MeshBasicMaterial({color: "white"});
@@ -47,4 +57,4 @@ const MaskPass = ({ selectedObject, fbo }) => {
   return null;
 };
 
-export default MaskPass;
+export default SilhouetteMaskPass;

@@ -6,6 +6,7 @@ function App() {
     <>
       <div className="flex flex-col gap-5 justify-center items-center">
         <h1>Snaptrude Assignment</h1>
+        <h3>Pranshu Kumar Gond</h3>
         <div>
           <h3 className="text-gray-600">Outline Shading</h3>
           <p className="text-gray-400">December 15th, 2024</p>
@@ -76,16 +77,19 @@ function App() {
                   the outline of the mesh in the fragment shader.
                 </p>
                 <p>
-                  In the fragment shader, for every pixel, I calculate the{" "}
-                  <i>gradient</i> or the <i>slope</i> of the colour values
-                  between neighbouring pixels. Naturally, at the edges of the
-                  mesh, the slope will be quite high. Everywhere else, the slope
-                  will be zero. I then, saturate this value (between 0 and 1)
-                  and use this value to interpolate between the mesh's original
-                  colour and the outline colour.
+                  I pass the texture of
+                  the frame buffer (after the mask pass) to the fragment shader.
+                  The goal of the fragment shader is quite simple - look for the
+                  r value of the neighbouring pixels (all the 4 directions). Use
+                  these values to calculate the difference in the r values in
+                  either direction. A simple <code>sqrt(dx * dx + dy * dy)</code> gives the
+                  deviation in the r values across neighbouring pixels. Then, I
+                  clamp this value between 0 and 1 and use it to interpolate
+                  between the outline colour and the base colour for a smooth
+                  transition.
                 </p>
                 <p>
-                  The texture of the Silhouette buffer can be viewed here. When
+                  The texture of the Silhouette buffer can be viewed from the Edit menu. When
                   hovered over a mesh, it creates a white silhouette of the
                   object.
                 </p>

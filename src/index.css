@@ -3,11 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-mono;
-}
-
-h1, h2, h3 {
-  @apply font-bold;
+  padding: 3rem;
 }
 
 h1 {
@@ -15,7 +11,7 @@ h1 {
 }
 
 h2 {
-  @apply text-2xl;
+  @apply text-3xl;
 }
 
 h3 {
